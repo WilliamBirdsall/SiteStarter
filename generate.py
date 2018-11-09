@@ -1,5 +1,6 @@
 import os
 import pathlib
+import shutil
 
 
 def create_sub_dirs(project_name):
@@ -10,16 +11,7 @@ def create_sub_dirs(project_name):
 def generate_files(project_name):
     def create_index_html_file():
         index_file_path = pathlib.PurePath(project_name, "index.html")
-        with open(index_file_path, 'w') as index_file:
-            index_file.write('<!DOCTYPE html>\n')
-            index_file.write('<html>\n')
-            index_file.write('\t<head>\n')
-            index_file.write('\t\t<title>My Site</title>\n')
-            index_file.write('\t\t<link rel="stylesheet" type="text/css" href="styles.css">\n')
-            index_file.write('\t</head>\n')
-            index_file.write('\t<body>\n')
-            index_file.write('\t</body>\n')
-            index_file.write('</html>\n')
+        shutil.copyfile("index_template.html", index_file_path)
 
     def create_css_files():
         css_file_path = pathlib.PurePath(project_name, "css", "styles.css")
@@ -37,7 +29,7 @@ def generate_files(project_name):
 
 
 if __name__ == '__main__':
-    project_name = input("Enter name for new project directory: ")
+    project_name = input("Enter project name: ")
     os.mkdir(project_name)
     create_sub_dirs(project_name)
     generate_files(project_name)
